@@ -1,6 +1,3 @@
-#ifndef MB_HPP_
-#define MB_HPP_
-
 extern volatile unsigned int mbox[36];
 
 enum {
@@ -35,5 +32,3 @@ enum {
 };
 
 unsigned int mbox_call(unsigned char ch);
-
-#endif
