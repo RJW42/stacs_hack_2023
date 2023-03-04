@@ -1,3 +1,5 @@
+#pragma once
+
 #define PERIPHERAL_BASE 0xFE000000
 
 void uart_init();

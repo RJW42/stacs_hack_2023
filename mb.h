@@ -1,3 +1,5 @@
+#pragma once
+
 extern volatile unsigned int mbox[36];
 
 enum {
