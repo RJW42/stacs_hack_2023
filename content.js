@@ -12,23 +12,24 @@ document.addEventListener("mouseup", function() {
     if (selection && selection != selection_record) {
         selection_record = selection;
       // Send the selected text to the ChatGPT API
-      fetch("https://api.openai.com/v1/engines/davinci-codex/completions", {
+      fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer API_KEY_HERE"
         },
         body: JSON.stringify({
-          "prompt": selection,
-          "max_tokens": 50,
-          "temperature": 0.7,
-          "n": 1,
-          "stop": ["."]
+            "model": "gpt-3.5-turbo",
+            "messages": [{"role": "system", "content": "You will be provided with a code snippet. Please respond with the language you think the code is written in, a summary of what the code does, and the predicted output if applicable."},
+                         {"role": "user", "content": selection }],
+            "temperature": 0.7,
+            "n": 1,
+            "stop": ["."]
         })
       })
       .then(response => response.json())
       .then(data => {
-        console.log(response)
+        console.log(data)
         // Check that the response contains valid data
         if (data && data.choices && data.choices.length > 0) {
           // Check if the popup window already exists
@@ -40,7 +41,7 @@ document.addEventListener("mouseup", function() {
             popup = window.open("", "Summary", "width=300,height=200");
   
             // Set the HTML content of the popup window
-            popup.document.body.innerHTML = `<p>${data.choices[0].text}</p>`;
+            popup.document.body.innerHTML = `<p>${data.choices[0].message.content}</p>`;
   
             // Listen for the popup window to be closed
             popup.addEventListener("beforeunload", function() {
