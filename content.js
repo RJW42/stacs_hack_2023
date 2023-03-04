@@ -16,7 +16,7 @@ document.addEventListener("mouseup", function() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer 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"
+          "Authorization": "Bearer API_KEY_HERE"
         },
         body: JSON.stringify({
           "prompt": selection,
@@ -28,6 +28,7 @@ document.addEventListener("mouseup", function() {
       })
       .then(response => response.json())
       .then(data => {
+        console.log(response)
         // Check that the response contains valid data
         if (data && data.choices && data.choices.length > 0) {
           // Check if the popup window already exists
