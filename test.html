@@ -1,54 +1,57 @@
 <html>
-<style>
-body {
-    background-color: #D1DBD9;
-    color: #1E1E24;
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
-    margin: 0 1em;
-    height: 100%;
-    box-sizing: content-box;
-}
-
-.container button {
-    --border-color: #1E1E24;
-    --border-width: 2px;
-    --bottom-distance: 0px;
-
-    margin-top: auto;
-    padding: 0.5em 2em;
-    font-size: 1.25em;
-    background-color: inherit;
-    font-weight: 600;
-    border: none;
-    border-bottom: var(--border-width) solid var(--border-color);
-    align-self: center;
-
-    display: inline-block;
-    background-image: linear-gradient(var(--border-color), var(--border-color));
-    background-size: 0% var(--border-width);
-    background-repeat: no-repeat;
-    transition: background-size 0.3s;
-    background-position: 50% calc(100% - var(--bottom-distance));
-}
-
-.container button:hover {
-    cursor: pointer;
-    border-color: #D1DBD9;
-    background-size: 100% var(--border-width);
-}
-</style>
-<body>
-<div class="container">
-    <h1>Title</h1>
-    <div>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit, lorem facilisis aliquet volutpat, lacus risus posuere urna, vel hendrerit erat quam in arcu. Fusce risus tellus, elementum imperdiet massa vel, pretium finibus nisl. Mauris tempor tincidunt lacinia. Donec mollis, eros quis tincidunt lacinia, leo magna mattis elit, at facilisis leo quam a elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec rutrum metus arcu, ut sollicitudin diam pharetra ac.</p>
-    <p>Quisque bibendum ante in nibh rhoncus lacinia. Cras dolor leo, ornare a pharetra et, tempor vitae velit. Etiam ultricies porttitor massa, et blandit velit facilisis vitae. Proin tellus eros, vulputate quis pulvinar at, accumsan sit amet urna. Aliquam erat volutpat. Nulla maximus neque lorem, at imperdiet diam feugiat quis. Etiam at volutpat lorem. Phasellus eu odio eu nisi ullamcorper tincidunt. Curabitur tempor lobortis commodo. Proin porttitor tortor libero, eu pretium quam efficitur in. </p>
-    </div>
-    <button>Copy Code to Clipboard</button>
-</div>
-</body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+    
+        body {
+            background-color: #D1DBD9;
+            color: #1E1E24;
+            font-family: 'Roboto', sans-serif;
+        }
+    
+        .container {
+            display: flex;
+            flex-direction: column;
+            margin: 0 1em;
+            height: 100%;
+            box-sizing: content-box;
+        }
+    
+        .container button {
+          --border-color: #1E1E24;
+          --border-width: 2px;
+          --bottom-distance: 0px;
+    
+          margin-top: auto;
+          padding: 0.5em 2em;
+          font-size: 1.25em;
+          background-color: inherit;
+          font-weight: 600;
+          border: none;
+          border-bottom: var(--border-width) solid var(--border-color);
+          align-self: center;
+          cursor: pointer;
+    
+          display: inline-block;
+          /* background-image: linear-gradient(var(--border-color), var(--border-color));
+          background-size: 0% var(--border-width);
+          background-repeat: no-repeat;
+          transition: background-size 0.6s;
+          background-position: 50% calc(100% - var(--bottom-distance)); */
+      }
+    
+      .container button:active {
+          background-color: #71716F;
+          /* border-color: #D1DBD9; */
+          /* background-size: 100% var(--border-width); */
+      }
+      </style>
+      <body>
+      <div class="container">
+          <h1>How do Code?</h1>
+          <div>
+          ${data.choices[0].message.content}
+          </div>
+          <button id="copy-button">Copy Code to Clipboard</button>
+      </div>
+      </body>
 </html>

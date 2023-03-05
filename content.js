@@ -13,6 +13,18 @@ document.addEventListener("mouseup", function() {
     }
   
     selection_record = selection;
+
+    navigator.clipboard.writeText(selection)
+      .then(() => console.log("Done"))
+      .catch((error) => console.error(error));
+
+    // popup_data({
+    //   choices: [{
+    //     message: {
+    //       content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet metus nec tellus feugiat lobortis. In massa tellus, congue quis ex at, tincidunt rutrum diam. Curabitur hendrerit turpis id ante feugiat, a luctus magna congue. Phasellus consequat fermentum imperdiet. Donec maximus ipsum tellus, sit amet lobortis nunc vehicula quis. Duis finibus, sapien non auctor pharetra, arcu nisi varius neque, vel malesuada orci mi vel mauris. Donec quis consequat magna. "
+    //     }
+    // }]
+    // });
     
     // Send the selected text to the ChatGPT API
     fetch("https://api.openai.com/v1/chat/completions", {
@@ -39,39 +51,40 @@ document.addEventListener("mouseup", function() {
     });
   });
 
+  function popup_data(data) {
+    if (!data || !data.choices || data.choices.length == 0) {
+      console.error("Invalid response from API:", data);
+      return;
+    }
+
+    if (popup && !popup.closed) {
+      // Update the content of the existing popup
+      // popup.document.body.innerHTML = `<p>${data.choices[0].text}</p>`;
+      return;
+    }
 
 
-function popup_data(data) {
-  if (!data || !data.choices || data.choices.length == 0) {
-    console.error("Invalid response from API:", data);
-    return;
-  }
+    popup = window.open("", "Summary", "width=400,height=600");
+    
+    popup.document.body.innerHTML = `
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
-  if (popup && !popup.closed) {
-    // Update the content of the existing popup
-    // popup.document.body.innerHTML = `<p>${data.choices[0].text}</p>`;
-    return;
-  }
+    body {
+        background-color: #D1DBD9;
+        color: #1E1E24;
+        font-family: 'Roboto', sans-serif;
+    }
 
+    .container {
+        display: flex;
+        flex-direction: column;
+        margin: 0 1em;
+        height: 100%;
+        box-sizing: content-box;
+    }
 
-  popup = window.open("", "Summary", "width=400,height=800");
-  
-  popup.document.body.innerHTML = `
-  <style>
-  body {
-    background-color: #D1DBD9;
-    color: #1E1E24;
-  }
-
-  .container {
-      display: flex;
-      flex-direction: column;
-      margin: 0 1em;
-      height: 100%;
-      box-sizing: content-box;
-  }
-
-  .container button {
+    .container button {
       --border-color: #1E1E24;
       --border-width: 2px;
       --bottom-distance: 0px;
@@ -84,40 +97,36 @@ function popup_data(data) {
       border: none;
       border-bottom: var(--border-width) solid var(--border-color);
       align-self: center;
-
+      cursor: pointer;
       display: inline-block;
-      background-image: linear-gradient(var(--border-color), var(--border-color));
-      background-size: 0% var(--border-width);
-      background-repeat: no-repeat;
-      transition: background-size 0.3s;
-      background-position: 50% calc(100% - var(--bottom-distance));
   }
 
-  .container button:hover {
-      cursor: pointer;
-      border-color: #D1DBD9;
-      background-size: 100% var(--border-width);
+  .container button:active {
+      background-color: #71716F;
   }
   </style>
   <body>
   <div class="container">
-      <h1>Title</h1>
+      <h1>How do Code?</h1>
       <div>
       ${data.choices[0].message.content}
       </div>
       <button id="copy-button">Copy Code to Clipboard</button>
   </div>
-  </body>  
-`;
+  </body>
+  `;
 
-  // Listen for the popup window to be closed
-  popup.addEventListener("beforeunload", function() {
-    // Set the popup variable to null to indicate that it has been closed
-    popup = null;
-  });
+    // Listen for the popup window to be closed
+    popup.addEventListener("beforeunload", function() {
+      // Set the popup variable to null to indicate that it has been closed
+      popup = null;
+    });
 
-  popup.document.getElementById("copy-button").addEventListener("click", function(event) {
-    console.log("Click");
-  });
-}
-
+    // popup.document.getElementById("copy-button").addEventListener("click", function() {
+    //   console.log("test");
+    //   navigator.clipboard.writeText(text)
+    //     .then(() => console.log("Done"))
+    //     .catch((error) => console.error(error));
+    // });
+  }
+});
