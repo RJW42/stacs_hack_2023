@@ -19,7 +19,7 @@ document.addEventListener("mouseup", function() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer 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"
+        "Authorization": "Bearer API_KEY_HERE"
       },
       body: JSON.stringify({
           "model": "gpt-3.5-turbo",
