@@ -20,7 +20,7 @@ document.addEventListener("mouseup", function() {
         },
         body: JSON.stringify({
             "model": "gpt-3.5-turbo",
-            "messages": [{"role": "system", "content": "You will be provided with a code snippet. Please respond with the language you think the code is written in, a summary of what the code does, and the predicted output if applicable."},
+            "messages": [{"role": "system", "content": "You will be provided with a code snippet. Please respond with the language you think the code is written in, a summary of what the code does, and the predicted output if applicable. Your response should consist of three distinct and clear sections: Language, Summary, and Output. The output section should be a code block containing an example output of the code snippet."},
                          {"role": "user", "content": selection }],
             "temperature": 0.7,
             "n": 1,
